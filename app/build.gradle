@@ -1,0 +1,95 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.14.2'
+    }
+}
+apply plugin: 'com.android.application'
+
+repositories {
+        jcenter()
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.0"
+
+    defaultConfig {
+        applicationId "hu.advancedweb.androidbackupdbtest.app"
+        minSdkVersion 19
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    lintOptions {
+        abortOnError true
+        ignoreWarnings false
+        warningsAsErrors true
+        textReport true
+        textOutput 'stdout'
+        xmlReport false
+        htmlReport false
+
+        disable 'OldTargetApi','LabelFor'
+    }
+}
+
+
+apply plugin:'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+}
+
+check.dependsOn('checkstyle')
+
+apply plugin: 'findbugs'
+
+task findbugs(type: FindBugs) {
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+    //excludeFilter = new File("${project.rootDir}/config/quality/findbugs/findbugs-filter.xml")
+    classes = files("$project.buildDir/intermediates/classes/")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports{
+        xml.enabled = false
+        html.enabled = true
+    }
+
+    classpath = files()
+}
+
+check.dependsOn('findbugs')
+
+tasks.findbugs.dependsOn tasks.assemble
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile group: 'com.google.guava', name: 'guava', version: '18.0'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+}

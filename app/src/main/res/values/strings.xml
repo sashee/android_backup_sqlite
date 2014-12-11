@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroidBackupDbTest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="refresh_ui_button_text">Refresh UI</string>
+    <string name="clear_log_button_text">Clear log</string>
+    <string name="call_datachanged_button_text">Call datachanged</string>
+    <string name="perform_timing_tests_button_text">Perform timing tests</string>
+    <string name="num_locations_text">Locations#:</string>
+    <string name="stuff_number_text">Stuff#/Location:</string>
+    <string name="populate_db_button_text">Populate db</string>
+    <string name="perform_restore_button_text">Perform restore</string>
+    <string name="stats_num_stuffs_text">Stuff#:</string>
+    <string name="database_hash_text">Database hash:</string>
+
+</resources>
